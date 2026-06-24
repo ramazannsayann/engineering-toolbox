@@ -16,17 +16,26 @@ const cards = categories.map((category) => ({
   count: getCalculatorsByCategory(category.id).length,
 }));
 
-// "Popüler araçlar": the real Ohm tool linked, others as "Yakında" placeholders.
-const ohms = getCalculatorById('ohms-law');
-const ohmsCategory = ohms ? getCategoryById(ohms.categoryId) : undefined;
-const ohmsHref =
-  ohms && ohmsCategory ? `/${ohmsCategory.slug}/${ohms.slug}/` : '/';
+// "Popüler araçlar": declared by calculator id so the list SELF-HEALS — a chip
+// becomes a real link the moment its calculator ships in the registry, and
+// shows a muted "Yakında" until then. No per-chip state is hardcoded.
+const POPULAR_IDS = ['ohms-law', 'kablo-kesiti', 'ip-subnet'] as const;
 
-const popular = [
-  { label: ohms?.title ?? 'Ohm Yasası Hesaplayıcı', href: ohmsHref },
-  { label: 'Kablo Kesiti Hesaplayıcı', href: null },
-  { label: 'IP / Subnet Hesaplayıcı', href: null },
-];
+// Display labels for popular tools that don't exist in the registry yet (so the
+// "Yakında" chip still reads correctly before the tool ships).
+const POPULAR_FALLBACK_LABELS: Record<string, string> = {
+  'ip-subnet': 'IP / Subnet Hesaplayıcı',
+};
+
+const popular = POPULAR_IDS.map((id) => {
+  const calc = getCalculatorById(id);
+  const category = calc ? getCategoryById(calc.categoryId) : undefined;
+  return {
+    label: calc?.title ?? POPULAR_FALLBACK_LABELS[id] ?? id,
+    // Trailing-slash href, mirroring the tool routes; null => "Yakında".
+    href: calc && category ? `/${category.slug}/${calc.slug}/` : null,
+  };
+});
 ---
 
 <BaseLayout title={title} description={description}>

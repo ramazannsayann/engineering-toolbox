@@ -15,6 +15,7 @@ import { powerTriangleMeta } from './electrical/guc-ucgeni';
 import { powerMeta } from './electrical/guc-hesabi';
 import { currentMeta } from './electrical/amper-hesabi';
 import { compensationMeta } from './electrical/kompanzasyon';
+import { voltageDropMeta } from './electrical/gerilim-dusumu';
 
 export type { Calculator } from './types';
 
@@ -24,6 +25,7 @@ const calculators: Calculator[] = [
   powerMeta,
   currentMeta,
   compensationMeta,
+  voltageDropMeta,
 ];
 
 /**

@@ -20,6 +20,9 @@ import { cableSizingMeta } from './electrical/kablo-kesiti';
 import { motorCurrentMeta } from './electrical/motor-akimi';
 import { transformerSizingMeta } from './electrical/trafo-boyutlandirma';
 import { shortCircuitMeta } from './electrical/kisa-devre-akimi';
+import { resistorColorMeta } from './electrical/direnc-renk-kodu';
+import { ledResistorMeta } from './electrical/led-direnci';
+import { timerMeta } from './electrical/555-timer';
 
 export type { Calculator } from './types';
 
@@ -34,6 +37,9 @@ const calculators: Calculator[] = [
   motorCurrentMeta,
   transformerSizingMeta,
   shortCircuitMeta,
+  resistorColorMeta,
+  ledResistorMeta,
+  timerMeta,
 ];
 
 /**

@@ -23,6 +23,9 @@ import CableSizingCalculator from '../../components/calculators/CableSizingCalcu
 import MotorCurrentCalculator from '../../components/calculators/MotorCurrentCalculator';
 import TransformerSizingCalculator from '../../components/calculators/TransformerSizingCalculator';
 import ShortCircuitCalculator from '../../components/calculators/ShortCircuitCalculator';
+import ResistorColorCalculator from '../../components/calculators/ResistorColorCalculator';
+import LedResistorCalculator from '../../components/calculators/LedResistorCalculator';
+import TimerCalculator from '../../components/calculators/TimerCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -38,6 +41,9 @@ export function getStaticPaths() {
     'motor-akimi',
     'trafo-boyutlandirma',
     'kisa-devre-akimi',
+    'direnc-renk-kodu',
+    'led-direnci',
+    '555-timer',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -75,4 +81,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'motor-akimi' && <MotorCurrentCalculator client:load />}
   {calculator.id === 'trafo-boyutlandirma' && <TransformerSizingCalculator client:load />}
   {calculator.id === 'kisa-devre-akimi' && <ShortCircuitCalculator client:load />}
+  {calculator.id === 'direnc-renk-kodu' && <ResistorColorCalculator client:load />}
+  {calculator.id === 'led-direnci' && <LedResistorCalculator client:load />}
+  {calculator.id === '555-timer' && <TimerCalculator client:load />}
 </ToolLayout>

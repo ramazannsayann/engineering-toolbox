@@ -14,11 +14,21 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getAllCalculators } from '../../calculators/registry';
 import { getCategoryById } from '../../data/categories';
 import OhmsLawCalculator from '../../components/calculators/OhmsLawCalculator';
+import PowerTriangleCalculator from '../../components/calculators/PowerTriangleCalculator';
+import PowerCalculator from '../../components/calculators/PowerCalculator';
+import CurrentCalculator from '../../components/calculators/CurrentCalculator';
+import CompensationCalculator from '../../components/calculators/CompensationCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
   // so frontmatter-level consts are not available here.
-  const WIRED_ISLAND_IDS = new Set<string>(['ohms-law']);
+  const WIRED_ISLAND_IDS = new Set<string>([
+    'ohms-law',
+    'guc-ucgeni',
+    'guc-hesabi',
+    'amper-hesabi',
+    'kompanzasyon',
+  ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
     .map((calculator) => {
@@ -46,4 +56,8 @@ const { calculator } = Astro.props;
 
 <ToolLayout calculator={calculator}>
   {calculator.id === 'ohms-law' && <OhmsLawCalculator client:load />}
+  {calculator.id === 'guc-ucgeni' && <PowerTriangleCalculator client:load />}
+  {calculator.id === 'guc-hesabi' && <PowerCalculator client:load />}
+  {calculator.id === 'amper-hesabi' && <CurrentCalculator client:load />}
+  {calculator.id === 'kompanzasyon' && <CompensationCalculator client:load />}
 </ToolLayout>

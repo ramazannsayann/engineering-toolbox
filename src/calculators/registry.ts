@@ -11,10 +11,20 @@
  */
 import type { Calculator } from './types';
 import { ohmsLawMeta } from './electrical/ohms-law';
+import { powerTriangleMeta } from './electrical/guc-ucgeni';
+import { powerMeta } from './electrical/guc-hesabi';
+import { currentMeta } from './electrical/amper-hesabi';
+import { compensationMeta } from './electrical/kompanzasyon';
 
 export type { Calculator } from './types';
 
-const calculators: Calculator[] = [ohmsLawMeta];
+const calculators: Calculator[] = [
+  ohmsLawMeta,
+  powerTriangleMeta,
+  powerMeta,
+  currentMeta,
+  compensationMeta,
+];
 
 /**
  * All registered calculators. Returns a shallow copy of the array; each

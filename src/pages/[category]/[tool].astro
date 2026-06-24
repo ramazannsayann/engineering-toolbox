@@ -20,6 +20,9 @@ import CurrentCalculator from '../../components/calculators/CurrentCalculator';
 import CompensationCalculator from '../../components/calculators/CompensationCalculator';
 import VoltageDropCalculator from '../../components/calculators/VoltageDropCalculator';
 import CableSizingCalculator from '../../components/calculators/CableSizingCalculator';
+import MotorCurrentCalculator from '../../components/calculators/MotorCurrentCalculator';
+import TransformerSizingCalculator from '../../components/calculators/TransformerSizingCalculator';
+import ShortCircuitCalculator from '../../components/calculators/ShortCircuitCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -32,6 +35,9 @@ export function getStaticPaths() {
     'kompanzasyon',
     'gerilim-dusumu',
     'kablo-kesiti',
+    'motor-akimi',
+    'trafo-boyutlandirma',
+    'kisa-devre-akimi',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -66,4 +72,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'kompanzasyon' && <CompensationCalculator client:load />}
   {calculator.id === 'gerilim-dusumu' && <VoltageDropCalculator client:load />}
   {calculator.id === 'kablo-kesiti' && <CableSizingCalculator client:load />}
+  {calculator.id === 'motor-akimi' && <MotorCurrentCalculator client:load />}
+  {calculator.id === 'trafo-boyutlandirma' && <TransformerSizingCalculator client:load />}
+  {calculator.id === 'kisa-devre-akimi' && <ShortCircuitCalculator client:load />}
 </ToolLayout>

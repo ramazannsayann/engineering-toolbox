@@ -17,6 +17,9 @@ import { currentMeta } from './electrical/amper-hesabi';
 import { compensationMeta } from './electrical/kompanzasyon';
 import { voltageDropMeta } from './electrical/gerilim-dusumu';
 import { cableSizingMeta } from './electrical/kablo-kesiti';
+import { motorCurrentMeta } from './electrical/motor-akimi';
+import { transformerSizingMeta } from './electrical/trafo-boyutlandirma';
+import { shortCircuitMeta } from './electrical/kisa-devre-akimi';
 
 export type { Calculator } from './types';
 
@@ -28,6 +31,9 @@ const calculators: Calculator[] = [
   compensationMeta,
   voltageDropMeta,
   cableSizingMeta,
+  motorCurrentMeta,
+  transformerSizingMeta,
+  shortCircuitMeta,
 ];
 
 /**

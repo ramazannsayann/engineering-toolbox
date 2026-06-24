@@ -31,6 +31,8 @@ import { base64Meta } from './computer/base64';
 import { urlEncodeMeta } from './computer/url-encode';
 import { hashMeta } from './computer/hash';
 import { jsonFormatlaMeta } from './computer/json-formatla';
+import { sifreUreticiMeta } from './computer/sifre-uretici';
+import { uuidUreticiMeta } from './computer/uuid-uretici';
 
 export type { Calculator } from './types';
 
@@ -56,6 +58,8 @@ const calculators: Calculator[] = [
   urlEncodeMeta,
   hashMeta,
   jsonFormatlaMeta,
+  sifreUreticiMeta,
+  uuidUreticiMeta,
 ];
 
 /**

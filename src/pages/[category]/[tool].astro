@@ -34,6 +34,8 @@ import Base64Converter from '../../components/calculators/Base64Converter';
 import UrlConverter from '../../components/calculators/UrlConverter';
 import HashCalculator from '../../components/calculators/HashCalculator';
 import JsonFormatter from '../../components/calculators/JsonFormatter';
+import PasswordGenerator from '../../components/calculators/PasswordGenerator';
+import UuidGenerator from '../../components/calculators/UuidGenerator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -60,6 +62,8 @@ export function getStaticPaths() {
     'url-encode',
     'hash',
     'json-formatla',
+    'sifre-uretici',
+    'uuid-uretici',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -108,4 +112,6 @@ const { calculator } = Astro.props;
   {calculator.id === 'url-encode' && <UrlConverter client:load />}
   {calculator.id === 'hash' && <HashCalculator client:load />}
   {calculator.id === 'json-formatla' && <JsonFormatter client:load />}
+  {calculator.id === 'sifre-uretici' && <PasswordGenerator client:load />}
+  {calculator.id === 'uuid-uretici' && <UuidGenerator client:load />}
 </ToolLayout>

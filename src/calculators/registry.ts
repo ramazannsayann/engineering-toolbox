@@ -26,6 +26,7 @@ import { timerMeta } from './electrical/555-timer';
 import { sayiTabaniMeta } from './computer/sayi-tabani';
 import { veriBoyutuMeta } from './computer/veri-boyutu';
 import { ipSubnetMeta } from './computer/ip-subnet';
+import { renkDonusturucuMeta } from './computer/renk-donusturucu';
 
 export type { Calculator } from './types';
 
@@ -46,6 +47,7 @@ const calculators: Calculator[] = [
   sayiTabaniMeta,
   veriBoyutuMeta,
   ipSubnetMeta,
+  renkDonusturucuMeta,
 ];
 
 /**

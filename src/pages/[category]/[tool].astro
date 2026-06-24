@@ -36,6 +36,7 @@ import HashCalculator from '../../components/calculators/HashCalculator';
 import JsonFormatter from '../../components/calculators/JsonFormatter';
 import PasswordGenerator from '../../components/calculators/PasswordGenerator';
 import UuidGenerator from '../../components/calculators/UuidGenerator';
+import LengthConverter from '../../components/calculators/LengthConverter';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -64,6 +65,7 @@ export function getStaticPaths() {
     'json-formatla',
     'sifre-uretici',
     'uuid-uretici',
+    'uzunluk-donusturucu',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -114,4 +116,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'json-formatla' && <JsonFormatter client:load />}
   {calculator.id === 'sifre-uretici' && <PasswordGenerator client:load />}
   {calculator.id === 'uuid-uretici' && <UuidGenerator client:load />}
+  {calculator.id === 'uzunluk-donusturucu' && <LengthConverter client:load />}
 </ToolLayout>

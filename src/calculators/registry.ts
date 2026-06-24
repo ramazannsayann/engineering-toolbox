@@ -33,6 +33,7 @@ import { hashMeta } from './computer/hash';
 import { jsonFormatlaMeta } from './computer/json-formatla';
 import { sifreUreticiMeta } from './computer/sifre-uretici';
 import { uuidUreticiMeta } from './computer/uuid-uretici';
+import { uzunlukMeta } from './general/uzunluk';
 
 export type { Calculator } from './types';
 
@@ -60,6 +61,7 @@ const calculators: Calculator[] = [
   jsonFormatlaMeta,
   sifreUreticiMeta,
   uuidUreticiMeta,
+  uzunlukMeta,
 ];
 
 /**

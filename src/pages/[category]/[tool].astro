@@ -19,6 +19,7 @@ import PowerCalculator from '../../components/calculators/PowerCalculator';
 import CurrentCalculator from '../../components/calculators/CurrentCalculator';
 import CompensationCalculator from '../../components/calculators/CompensationCalculator';
 import VoltageDropCalculator from '../../components/calculators/VoltageDropCalculator';
+import CableSizingCalculator from '../../components/calculators/CableSizingCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -30,6 +31,7 @@ export function getStaticPaths() {
     'amper-hesabi',
     'kompanzasyon',
     'gerilim-dusumu',
+    'kablo-kesiti',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -63,4 +65,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'amper-hesabi' && <CurrentCalculator client:load />}
   {calculator.id === 'kompanzasyon' && <CompensationCalculator client:load />}
   {calculator.id === 'gerilim-dusumu' && <VoltageDropCalculator client:load />}
+  {calculator.id === 'kablo-kesiti' && <CableSizingCalculator client:load />}
 </ToolLayout>

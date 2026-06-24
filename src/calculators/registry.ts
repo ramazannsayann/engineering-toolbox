@@ -16,6 +16,7 @@ import { powerMeta } from './electrical/guc-hesabi';
 import { currentMeta } from './electrical/amper-hesabi';
 import { compensationMeta } from './electrical/kompanzasyon';
 import { voltageDropMeta } from './electrical/gerilim-dusumu';
+import { cableSizingMeta } from './electrical/kablo-kesiti';
 
 export type { Calculator } from './types';
 
@@ -26,6 +27,7 @@ const calculators: Calculator[] = [
   currentMeta,
   compensationMeta,
   voltageDropMeta,
+  cableSizingMeta,
 ];
 
 /**

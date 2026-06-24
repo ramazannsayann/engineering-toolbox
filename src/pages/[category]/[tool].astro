@@ -26,6 +26,7 @@ import ShortCircuitCalculator from '../../components/calculators/ShortCircuitCal
 import ResistorColorCalculator from '../../components/calculators/ResistorColorCalculator';
 import LedResistorCalculator from '../../components/calculators/LedResistorCalculator';
 import TimerCalculator from '../../components/calculators/TimerCalculator';
+import NumberBaseConverter from '../../components/calculators/NumberBaseConverter';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -44,6 +45,7 @@ export function getStaticPaths() {
     'direnc-renk-kodu',
     'led-direnci',
     '555-timer',
+    'sayi-tabani',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -84,4 +86,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'direnc-renk-kodu' && <ResistorColorCalculator client:load />}
   {calculator.id === 'led-direnci' && <LedResistorCalculator client:load />}
   {calculator.id === '555-timer' && <TimerCalculator client:load />}
+  {calculator.id === 'sayi-tabani' && <NumberBaseConverter client:load />}
 </ToolLayout>

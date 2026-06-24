@@ -27,8 +27,12 @@ export interface Calculator {
   readonly title: string;
   /** Turkish one-line description (used later for meta descriptions). */
   readonly description: string;
-  /** Short display formula(s), e.g. "V = I × R · P = V × I". */
-  readonly formula: string;
+  /**
+   * Short display formula(s), e.g. "V = I × R · P = V × I". Optional: converter
+   * / transformer tools (number base, base64, …) have no formula, so the
+   * FormulaBlock is omitted for them.
+   */
+  readonly formula?: string;
   /** Turkish SEO keywords. */
   readonly keywords: readonly string[];
   /** Related calculator IDs (may reference tools that don't exist yet). */

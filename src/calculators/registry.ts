@@ -23,6 +23,7 @@ import { shortCircuitMeta } from './electrical/kisa-devre-akimi';
 import { resistorColorMeta } from './electrical/direnc-renk-kodu';
 import { ledResistorMeta } from './electrical/led-direnci';
 import { timerMeta } from './electrical/555-timer';
+import { sayiTabaniMeta } from './computer/sayi-tabani';
 
 export type { Calculator } from './types';
 
@@ -40,6 +41,7 @@ const calculators: Calculator[] = [
   resistorColorMeta,
   ledResistorMeta,
   timerMeta,
+  sayiTabaniMeta,
 ];
 
 /**

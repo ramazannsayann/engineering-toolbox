@@ -113,9 +113,13 @@ const jsonLdBlocks = [softwareApp, breadcrumb, ...(faqPage ? [faqPage] : [])];
       <slot />
     </AppScreen>
 
-    <div class="mt-6">
-      <FormulaBlock formula={calculator.formula} />
-    </div>
+    {
+      calculator.formula && (
+        <div class="mt-6">
+          <FormulaBlock formula={calculator.formula} />
+        </div>
+      )
+    }
 
     <RelatedTools ids={calculator.relatedTools} class="mt-8" />
 

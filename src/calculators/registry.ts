@@ -29,6 +29,7 @@ import { ipSubnetMeta } from './computer/ip-subnet';
 import { renkDonusturucuMeta } from './computer/renk-donusturucu';
 import { base64Meta } from './computer/base64';
 import { urlEncodeMeta } from './computer/url-encode';
+import { hashMeta } from './computer/hash';
 
 export type { Calculator } from './types';
 
@@ -52,6 +53,7 @@ const calculators: Calculator[] = [
   renkDonusturucuMeta,
   base64Meta,
   urlEncodeMeta,
+  hashMeta,
 ];
 
 /**

@@ -34,6 +34,10 @@ import { jsonFormatlaMeta } from './computer/json-formatla';
 import { sifreUreticiMeta } from './computer/sifre-uretici';
 import { uuidUreticiMeta } from './computer/uuid-uretici';
 import { uzunlukMeta } from './general/uzunluk';
+import { agirlikMeta } from './general/agirlik';
+import { alanMeta } from './general/alan';
+import { hacimMeta } from './general/hacim';
+import { hizMeta } from './general/hiz';
 
 export type { Calculator } from './types';
 
@@ -62,6 +66,10 @@ const calculators: Calculator[] = [
   sifreUreticiMeta,
   uuidUreticiMeta,
   uzunlukMeta,
+  agirlikMeta,
+  alanMeta,
+  hacimMeta,
+  hizMeta,
 ];
 
 /**

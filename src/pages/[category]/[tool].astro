@@ -37,6 +37,11 @@ import JsonFormatter from '../../components/calculators/JsonFormatter';
 import PasswordGenerator from '../../components/calculators/PasswordGenerator';
 import UuidGenerator from '../../components/calculators/UuidGenerator';
 import LengthConverter from '../../components/calculators/LengthConverter';
+import LinearConverter from '../../components/calculators/LinearConverter';
+import { WEIGHT_UNITS } from '../../calculators/general/agirlik';
+import { AREA_UNITS } from '../../calculators/general/alan';
+import { VOLUME_UNITS } from '../../calculators/general/hacim';
+import { SPEED_UNITS } from '../../calculators/general/hiz';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -66,6 +71,10 @@ export function getStaticPaths() {
     'sifre-uretici',
     'uuid-uretici',
     'uzunluk-donusturucu',
+    'agirlik-donusturucu',
+    'alan-donusturucu',
+    'hacim-donusturucu',
+    'hiz-donusturucu',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -117,4 +126,16 @@ const { calculator } = Astro.props;
   {calculator.id === 'sifre-uretici' && <PasswordGenerator client:load />}
   {calculator.id === 'uuid-uretici' && <UuidGenerator client:load />}
   {calculator.id === 'uzunluk-donusturucu' && <LengthConverter client:load />}
+  {calculator.id === 'agirlik-donusturucu' && (
+    <LinearConverter units={WEIGHT_UNITS} defaultUnitId="kg" client:load />
+  )}
+  {calculator.id === 'alan-donusturucu' && (
+    <LinearConverter units={AREA_UNITS} defaultUnitId="m2" client:load />
+  )}
+  {calculator.id === 'hacim-donusturucu' && (
+    <LinearConverter units={VOLUME_UNITS} defaultUnitId="l" client:load />
+  )}
+  {calculator.id === 'hiz-donusturucu' && (
+    <LinearConverter units={SPEED_UNITS} defaultUnitId="kmh" client:load />
+  )}
 </ToolLayout>

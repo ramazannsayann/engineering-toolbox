@@ -27,6 +27,7 @@ import { sayiTabaniMeta } from './computer/sayi-tabani';
 import { veriBoyutuMeta } from './computer/veri-boyutu';
 import { ipSubnetMeta } from './computer/ip-subnet';
 import { renkDonusturucuMeta } from './computer/renk-donusturucu';
+import { base64Meta } from './computer/base64';
 
 export type { Calculator } from './types';
 
@@ -48,6 +49,7 @@ const calculators: Calculator[] = [
   veriBoyutuMeta,
   ipSubnetMeta,
   renkDonusturucuMeta,
+  base64Meta,
 ];
 
 /**

@@ -30,6 +30,7 @@ import NumberBaseConverter from '../../components/calculators/NumberBaseConverte
 import DataSizeConverter from '../../components/calculators/DataSizeConverter';
 import SubnetCalculator from '../../components/calculators/SubnetCalculator';
 import ColorConverter from '../../components/calculators/ColorConverter';
+import Base64Converter from '../../components/calculators/Base64Converter';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -52,6 +53,7 @@ export function getStaticPaths() {
     'veri-boyutu',
     'ip-subnet',
     'renk-donusturucu',
+    'base64',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -96,4 +98,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'veri-boyutu' && <DataSizeConverter client:load />}
   {calculator.id === 'ip-subnet' && <SubnetCalculator client:load />}
   {calculator.id === 'renk-donusturucu' && <ColorConverter client:load />}
+  {calculator.id === 'base64' && <Base64Converter client:load />}
 </ToolLayout>

@@ -12,11 +12,18 @@ import ConversionResult from '../ui/ConversionResult';
  * request (latest-wins), so fast typing can never show a stale/mismatched hash.
  */
 export default function HashCalculator() {
-  const [input, setInput] = useState('abc');
+  const [input, setInput] = useState('');
   const [result, setResult] = useState<HashResult | null>(null);
   const latestId = useRef(0);
 
   useEffect(() => {
+    // Empty input → clean empty state (no rows). The engine can hash the empty
+    // string, but showing those degenerate hashes on an empty field is
+    // confusing, so short-circuit here (also covers initial load + Temizle).
+    if (input === '') {
+      setResult(null);
+      return;
+    }
     const id = ++latestId.current;
     let active = true;
     void computeHashes(input).then((res) => {
@@ -30,6 +37,7 @@ export default function HashCalculator() {
 
   function handleClear(): void {
     setInput('');
+    setResult(null);
   }
 
   return (

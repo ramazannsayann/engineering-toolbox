@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchPill from '../components/ui/SearchPill.astro';
+import CategoryCard from '../components/ui/CategoryCard.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import { categories, getCategoryById } from '../data/categories';
+import { getCalculatorsByCategory, getCalculatorById } from '../calculators/registry';
+
+const title = 'Engineering Toolbox — Mühendislik Araç Kutusu';
+const description =
+  'Tüm mühendislik hesaplamaları tek yerde. Elektrik, HVAC, ısı, dönüşüm ve bilgisayar hesaplayıcıları — hızlı, tarayıcıda ve ücretsiz.';
+
+// REAL per-category tool counts (not mocked).
+const cards = categories.map((category) => ({
+  category,
+  count: getCalculatorsByCategory(category.id).length,
+}));
+
+// "Popüler araçlar": the real Ohm tool linked, others as "Yakında" placeholders.
+const ohms = getCalculatorById('ohms-law');
+const ohmsCategory = ohms ? getCategoryById(ohms.categoryId) : undefined;
+const ohmsHref =
+  ohms && ohmsCategory ? `/${ohmsCategory.slug}/${ohms.slug}/` : '/';
+
+const popular = [
+  { label: ohms?.title ?? 'Ohm Yasası Hesaplayıcı', href: ohmsHref },
+  { label: 'Kablo Kesiti Hesaplayıcı', href: null },
+  { label: 'IP / Subnet Hesaplayıcı', href: null },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-12 sm:py-16">
+    <section class="mb-12 text-center sm:mb-16">
+      <p class="mono-label" style="color: var(--color-accent)">Mühendislik Araç Kutusu</p>
+      <h1 class="mt-3 text-4xl font-bold tracking-[-0.02em] text-text sm:text-5xl">
+        Engineering Toolbox
+      </h1>
+      <p class="mx-auto mt-4 max-w-xl text-[15px] text-text-muted">
+        Tüm mühendislik hesaplamaları tek yerde.
+      </p>
+      <div class="mx-auto mt-7 max-w-md">
+        <SearchPill size="lg" />
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <SectionLabel as="h2" class="mb-4 block">Kategoriler</SectionLabel>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map(({ category, count }) => <CategoryCard category={category} count={count} />)}
+      </div>
+    </section>
+
+    <section>
+      <SectionLabel as="h2" class="mb-4 block">Popüler Araçlar</SectionLabel>
+      <ul class="ui-card flex flex-col px-5 py-1.5">
+        {
+          popular.map((item, index) => (
+            <li class:list={[index > 0 && 'border-t border-hairline']}>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  class="group flex items-center justify-between gap-3 py-3.5"
+                >
+                  <span class="flex items-center gap-3">
+                    <span class="status-dot" aria-hidden="true" />
+                    <span class="text-[14px] text-text transition-colors group-hover:text-accent">
+                      {item.label}
+                    </span>
+                  </span>
+                  <span class="text-text-faint" aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <div class="flex items-center justify-between gap-3 py-3.5 opacity-55">
+                  <span class="flex items-center gap-3">
+                    <span
+                      class="h-[7px] w-[7px] rounded-full"
+                      style="background: var(--color-dot-inactive)"
+                      aria-hidden="true"
+                    />
+                    <span class="text-[14px] text-text-muted">{item.label}</span>
+                  </span>
+                  <span class="rounded-[6px] border border-hairline px-2 py-0.5 text-[10.5px] uppercase tracking-wider text-text-dim">
+                    Yakında
+                  </span>
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

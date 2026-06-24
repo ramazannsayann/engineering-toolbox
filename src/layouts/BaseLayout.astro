@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import SiteHeader from '../components/ui/SiteHeader.astro';
+import SiteFooter from '../components/ui/SiteFooter.astro';
+
+interface Props {
+  /** Page <title>. */
+  title: string;
+  /** Meta description for SEO. */
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+// Canonical URL is built from the `site` configured in astro.config.mjs.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Preload filter for <Font/>: only the latin subset at body/label/heading weights.
+const PRELOAD = [
+  { subset: 'latin', weight: 400 },
+  { subset: 'latin', weight: 600 },
+  { subset: 'latin', weight: 700 },
+];
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL.href} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {/* Self-hosted fonts via Astro 7's built-in Fonts API (see astro.config.mjs).
+        Preload only the primary `latin` subset at the most-used weights — the
+        latin-ext (Turkish) and greek (Ω) subsets load on demand via unicode-range,
+        so we don't ship a wall of preload links. */}
+    <Font cssVariable="--font-inter" preload={PRELOAD} />
+    <Font cssVariable="--font-jetbrains-mono" preload={PRELOAD} />
+    {/* Per-page head extras (e.g. JSON-LD structured data). */}
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col antialiased">
+    <SiteHeader />
+    <slot />
+    <SiteFooter />
+  </body>
+</html>

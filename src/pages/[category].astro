@@ -1,0 +1,84 @@
+---
+// Category landing pages — ONE dynamic route over categories.ts (the scalable
+// pattern, not five near-identical files). Matches single-segment paths like
+// /elektrik; the deeper tool route /elektrik/<tool> is handled by
+// [category]/[tool].astro, so there is no collision.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from '../components/ui/ToolCard.astro';
+import { categories, type Category } from '../data/categories';
+import { getCalculatorsByCategory } from '../calculators/registry';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+interface Props {
+  category: Category;
+}
+const { category } = Astro.props;
+const tools = getCalculatorsByCategory(category.id);
+
+const title = `${category.title} Hesaplayıcıları | Engineering Toolbox`;
+const description = category.description;
+
+// BreadcrumbList for the category page (Ana sayfa › <category>). The self URL
+// uses the page's own canonical (trailing-slash) form, derived from `site`.
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: new URL('/', Astro.site).href },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: category.title,
+      item: new URL(Astro.url.pathname, Astro.site).href,
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}
+    />
+  </Fragment>
+
+  <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:py-12">
+    <nav
+      aria-label="Sayfa yolu"
+      class="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] text-text-dim"
+    >
+      <a href="/" class="transition-colors hover:text-text">Ana sayfa</a>
+      <span class="text-text-faint" aria-hidden="true">›</span>
+      <span class="text-text-muted">{category.title}</span>
+    </nav>
+
+    <header class="mb-8">
+      <h1 class="text-[28px] font-bold tracking-[-0.02em] text-text">{category.title}</h1>
+      <p class="mt-2 text-[14px] text-text-muted">{category.description}</p>
+    </header>
+
+    {
+      tools.length > 0 ? (
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {tools.map((tool) => (
+            <ToolCard calculator={tool} href={`/${category.slug}/${tool.slug}/`} />
+          ))}
+        </div>
+      ) : (
+        <div class="ui-card p-8 text-center">
+          <p class="text-[14px] text-text-muted">
+            Bu kategoriye yakında araçlar eklenecek.
+          </p>
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

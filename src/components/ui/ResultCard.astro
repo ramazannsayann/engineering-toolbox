@@ -1,0 +1,43 @@
+---
+// Static twin of ResultCard.tsx for server-rendered tool pages (Chunk 4).
+// Shares the same .result-card visual classes from global.css.
+interface ResultValue {
+  label: string;
+  value: string;
+  unit: string;
+}
+interface Props {
+  values: ResultValue[];
+  caption?: string;
+}
+const { values, caption } = Astro.props;
+---
+
+<div class="result-card p-5">
+  <div class="flex items-center justify-between">
+    <span class="mono-label" style="color: var(--color-accent)">Sonuç</span>
+    <span class="flex items-center gap-1.5">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="mono-label">hesaplandı</span>
+    </span>
+  </div>
+  <div class="mt-4 flex flex-col">
+    {
+      values.map((value, index) => (
+        <div
+          class:list={[
+            'flex items-baseline justify-between gap-3 py-3',
+            index > 0 && 'border-t border-hairline',
+          ]}
+        >
+          <span class="text-[13px] text-text-muted">{value.label}</span>
+          <span class="flex items-baseline gap-1.5">
+            <span class="result-number">{value.value}</span>
+            <span class="result-unit">{value.unit}</span>
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  {caption && <p class="mt-3 text-[12px] text-text-dim">{caption}</p>}
+</div>

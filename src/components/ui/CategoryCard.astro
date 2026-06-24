@@ -1,0 +1,45 @@
+---
+import type { Category } from '../../data/categories';
+import CategoryIcon from './CategoryIcon.astro';
+
+interface Props {
+  category: Category;
+  /** REAL tool count (getCalculatorsByCategory(id).length). */
+  count: number;
+}
+const { category, count } = Astro.props;
+const hasTools = count > 0;
+---
+
+<a
+  href={`/${category.slug}/`}
+  class:list={[
+    'ui-card group flex items-start gap-3.5 p-[18px] transition-colors',
+    hasTools ? 'hover:border-accent/40' : 'opacity-60 hover:opacity-90',
+  ]}
+>
+  <span
+    class:list={[
+      'mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-[10px] border border-hairline',
+      hasTools ? 'text-accent' : 'text-text-dim',
+    ]}
+    style="background: var(--color-surface-sunken)"
+  >
+    <CategoryIcon name={category.icon} class="h-5 w-5" />
+  </span>
+  <span class="min-w-0 flex-1">
+    <span class="flex items-center justify-between gap-2">
+      <span class="text-[15px] font-semibold text-text">{category.title}</span>
+      {
+        hasTools ? (
+          <span class="font-mono text-[12px] text-text-dim">{count} araç</span>
+        ) : (
+          <span class="rounded-[6px] border border-hairline px-2 py-0.5 text-[10.5px] uppercase tracking-wider text-text-dim">
+            Yakında
+          </span>
+        )
+      }
+    </span>
+    <span class="mt-1 block text-[12.5px] text-text-muted">{category.description}</span>
+  </span>
+</a>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Engineering Toolbox">
+  <rect width="32" height="32" rx="6" fill="#3730a3" />
+  <path
+    d="M8 23V9h4.3l3.7 7.1L19.7 9H24v14h-3.1v-8.3L17.4 23h-2.8l-3.5-8.3V23H8z"
+    fill="#ffffff"
+  />
+</svg>

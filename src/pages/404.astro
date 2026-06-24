@@ -1,0 +1,30 @@
+---
+// Custom 404. Emits dist/404.html, which Cloudflare serves via
+// not_found_handling: "404-page". Uses the existing dark design tokens.
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Sayfa bulunamadı (404) | Engineering Toolbox';
+const description = 'Aradığınız sayfa bulunamadı.';
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-4 py-24 text-center">
+    <p class="mono-label" style="color: var(--color-accent)">Hata 404</p>
+    <p
+      class="mt-3 font-mono text-7xl font-bold tracking-[-0.02em] text-accent sm:text-8xl"
+      style="text-shadow: 0 0 24px color-mix(in oklab, var(--color-accent) 35%, transparent)"
+    >
+      404
+    </p>
+    <h1 class="mt-4 text-[22px] font-bold tracking-[-0.02em] text-text">
+      Aradığın sayfa bulunamadı.
+    </h1>
+    <p class="mt-2 text-[14px] text-text-muted">
+      Bağlantı taşınmış veya hiç var olmamış olabilir.
+    </p>
+    <a href="/" class="btn-accent mt-8 inline-flex items-center gap-2 px-4 py-2.5 text-sm">
+      <span aria-hidden="true">←</span>
+      Ana sayfaya dön
+    </a>
+  </main>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+// Tool pages — ONE dynamic route over the registry (the scalable routing
+// mechanism): getStaticPaths maps each WIRED calculator to /<categorySlug>/<toolSlug>.
+//
+// Island wiring: Astro builds a hydration script from a STATICALLY imported,
+// directly-referenced component, so a `client:load` island cannot be pulled from
+// a runtime map. Each tool's island is therefore a direct import gated by id.
+// getStaticPaths only generates pages for ids in WIRED_ISLAND_IDS, so adding a
+// calculator to the registry WITHOUT wiring its island here can never ship an
+// empty tool page. Phase 1 adds a tool with: registry entry → island import →
+// an id in WIRED_ISLAND_IDS → a render branch below.
+import type { Calculator } from '../../calculators/types';
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getAllCalculators } from '../../calculators/registry';
+import { getCategoryById } from '../../data/categories';
+import OhmsLawCalculator from '../../components/calculators/OhmsLawCalculator';
+
+export function getStaticPaths() {
+  // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
+  // so frontmatter-level consts are not available here.
+  const WIRED_ISLAND_IDS = new Set<string>(['ohms-law']);
+  return getAllCalculators()
+    .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
+    .map((calculator) => {
+      const category = getCategoryById(calculator.categoryId);
+      if (!category) {
+        // categoryId is an invariant — fail the build rather than coin an
+        // orphan URL on a raw English segment with no category page.
+        throw new Error(
+          `Calculator "${calculator.id}" has unknown categoryId "${calculator.categoryId}". ` +
+            'Add the category to src/data/categories.ts.',
+        );
+      }
+      return {
+        params: { category: category.slug, tool: calculator.slug },
+        props: { calculator },
+      };
+    });
+}
+
+interface Props {
+  calculator: Calculator;
+}
+const { calculator } = Astro.props;
+---
+
+<ToolLayout calculator={calculator}>
+  {calculator.id === 'ohms-law' && <OhmsLawCalculator client:load />}
+</ToolLayout>

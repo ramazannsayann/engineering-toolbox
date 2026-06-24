@@ -1,0 +1,32 @@
+---
+// The visible search pill. Functional search is NOT in Phase 0 — this is a
+// disabled affordance (announced as "coming soon") that fills in during Phase 3.
+interface Props {
+  size?: 'sm' | 'lg';
+  class?: string;
+}
+const { size = 'sm', class: className = '' } = Astro.props;
+const sizing = size === 'lg' ? 'px-4 py-3 text-[15px]' : 'px-3.5 py-2 text-[13px]';
+---
+
+<button
+  type="button"
+  disabled
+  aria-label="Arama yakında eklenecek"
+  class:list={['search-pill flex w-full items-center gap-2.5', sizing, className]}
+>
+  <svg
+    class="h-4 w-4 flex-none"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-3.2-3.2"></path>
+  </svg>
+  <span class="truncate">Araç ara… (örn. Ohm, kablo, IP)</span>
+</button>

@@ -1,0 +1,16 @@
+---
+// Chip: surface bg, subtle border, radius 9, 13px text, optional ↗ icon.
+// Renders as <a> when href is given, otherwise a static <span>.
+interface Props {
+  label: string;
+  href?: string;
+  icon?: boolean;
+}
+const { label, href, icon = true } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag class="chip" href={href}>
+  <span>{label}</span>
+  {icon && <span class="chip-icon" aria-hidden="true">↗</span>}
+</Tag>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  tone?: 'default' | 'accent';
+  /** Render as a real heading when the label introduces a page section. */
+  as?: 'span' | 'h2' | 'h3' | 'p';
+  class?: string;
+}
+const { tone = 'default', as: Tag = 'span', class: className = '' }: Props = Astro.props;
+---
+
+<Tag
+  class:list={['mono-label', className]}
+  style={tone === 'accent' ? 'color: var(--color-accent)' : undefined}
+>
+  <slot />
+</Tag>

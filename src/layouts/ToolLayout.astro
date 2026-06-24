@@ -1,0 +1,142 @@
+---
+// Full tool-page layout every calculator page uses. Builds on BaseLayout
+// (no html/head duplication) and derives ALL content + SEO from the registry
+// metadata it is handed. URLs derive from the configured `site` — no hardcoded
+// domains anywhere.
+import type { Calculator } from '../calculators/types';
+import BaseLayout from './BaseLayout.astro';
+import AppScreen from '../components/ui/AppScreen.astro';
+import FormulaBlock from '../components/ui/FormulaBlock.astro';
+import RelatedTools from '../components/ui/RelatedTools.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import { getCategoryById } from '../data/categories';
+
+interface Props {
+  calculator: Calculator;
+}
+const { calculator } = Astro.props;
+const category = getCategoryById(calculator.categoryId);
+
+const pageTitle = `${calculator.title} | Engineering Toolbox`;
+
+// Absolute URLs from the configured `site` (single source of truth).
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const homeUrl = new URL('/', Astro.site).href;
+const categoryUrl = category
+  ? new URL(`/${category.slug}/`, Astro.site).href
+  : homeUrl;
+
+// ---- Structured data (JSON-LD) ----
+const softwareApp = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: calculator.title,
+  description: calculator.description,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web',
+  url: pageUrl,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' },
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: homeUrl },
+    ...(category
+      ? [{ '@type': 'ListItem', position: 2, name: category.title, item: categoryUrl }]
+      : []),
+    {
+      '@type': 'ListItem',
+      position: category ? 3 : 2,
+      name: calculator.title,
+      item: pageUrl,
+    },
+  ],
+};
+
+const hasFaq = calculator.faq !== undefined && calculator.faq.length > 0;
+const faqPage = hasFaq
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: calculator.faq!.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : null;
+
+const jsonLdBlocks = [softwareApp, breadcrumb, ...(faqPage ? [faqPage] : [])];
+---
+
+<BaseLayout title={pageTitle} description={calculator.description}>
+  <Fragment slot="head">
+    {
+      jsonLdBlocks.map((block) => (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(block).replace(/</g, '\\u003c')}
+        />
+      ))
+    }
+  </Fragment>
+
+  <main class="mx-auto w-full max-w-2xl flex-1 px-4 py-8 sm:py-12">
+    <nav
+      aria-label="Sayfa yolu"
+      class="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] text-text-dim"
+    >
+      <a href="/" class="transition-colors hover:text-text">Ana sayfa</a>
+      {
+        category && (
+          <>
+            <span class="text-text-faint" aria-hidden="true">›</span>
+            <a href={`/${category.slug}/`} class="transition-colors hover:text-text">
+              {category.title}
+            </a>
+          </>
+        )
+      }
+      <span class="text-text-faint" aria-hidden="true">›</span>
+      <span class="text-text-muted">{calculator.title}</span>
+    </nav>
+
+    <header class="mb-8">
+      <h1 class="text-[28px] font-bold tracking-[-0.02em] text-text">{calculator.title}</h1>
+      <p class="mt-2 text-[14px] text-text-muted">{calculator.description}</p>
+    </header>
+
+    <AppScreen>
+      <slot />
+    </AppScreen>
+
+    <div class="mt-6">
+      <FormulaBlock formula={calculator.formula} />
+    </div>
+
+    <RelatedTools ids={calculator.relatedTools} class="mt-8" />
+
+    {
+      hasFaq && (
+        <section class="mt-10">
+          <SectionLabel as="h2" class="mb-4 block">Sıkça Sorulan Sorular</SectionLabel>
+          <div class="flex flex-col gap-3">
+            {calculator.faq!.map((item) => (
+              <details class="ui-card p-4">
+                <summary class="cursor-pointer text-[15px] font-semibold text-text">
+                  {item.question}
+                </summary>
+                <p class="mt-2 text-[13.5px] leading-relaxed text-text-muted">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <p class="mt-10 text-[12px] text-text-faint">Sonuçlar referans amaçlıdır.</p>
+  </main>
+</BaseLayout>

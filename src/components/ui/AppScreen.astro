@@ -1,0 +1,12 @@
+---
+// The dark "screen" shell (bg #0a0c10, dot-grid, radius 12, subtle border,
+// screen shadow) used to frame a calculator.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['app-screen', 'dot-grid', 'p-4', 'sm:p-6', className]}>
+  <slot />
+</div>

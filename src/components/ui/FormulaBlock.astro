@@ -1,0 +1,46 @@
+---
+// The "code panel": three decor dots + "formüller" label + a faint right note,
+// then the formula(s) in mono with variable names in accent and operators faint.
+interface Props {
+  /** Formula string, e.g. "V = I × R · P = V × I". */
+  formula: string;
+  /** Faint right-aligned note, e.g. "Ohm yasası". */
+  note?: string;
+}
+const { formula, note } = Astro.props;
+
+const escapeHtml = (value: string): string =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+// Tokenize so variable names render in accent and everything else (operators,
+// numbers) in the faint color. Built as HTML and injected with set:html so the
+// whitespace between tokens survives Astro 7's whitespace-collapsing compiler.
+const isWord = (token: string): boolean =>
+  /^[A-Za-zçğıöşüÇĞİÖŞÜ]+$/.test(token);
+
+const formulaHtml = formula
+  .split(/(\s+)/)
+  .map((token) => {
+    if (/^\s+$/.test(token)) return token;
+    const safe = escapeHtml(token);
+    return isWord(token)
+      ? `<span class="formula-name">${safe}</span>`
+      : `<span class="formula-op">${safe}</span>`;
+  })
+  .join('');
+---
+
+<div class="formula-block p-4">
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <span class="flex gap-1.5" aria-hidden="true">
+        <span class="decor-dot"></span>
+        <span class="decor-dot"></span>
+        <span class="decor-dot"></span>
+      </span>
+      <span class="mono-label">formüller</span>
+    </div>
+    {note && <span class="font-mono text-[12px] text-text-dim">{note}</span>}
+  </div>
+  <p class="formula-body" set:html={formulaHtml}></p>
+</div>

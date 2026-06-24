@@ -1,0 +1,41 @@
+---
+import Chip from './Chip.astro';
+import SectionLabel from './SectionLabel.astro';
+import type { Calculator } from '../../calculators/types';
+import { getCalculatorById } from '../../calculators/registry';
+import { getCategoryById } from '../../data/categories';
+
+interface Props {
+  /** Related calculator IDs (some may not exist yet). */
+  ids: readonly string[];
+  class?: string;
+}
+const { ids, class: className = '' } = Astro.props;
+
+// Render ONLY tools that already exist, as linked chips at their real
+// /<categorySlug>/<toolSlug> path. Not-yet-existing ids are skipped; if none
+// exist, the whole section is omitted (it fills in as Phase 1 adds tools).
+const items = ids
+  .map((id) => getCalculatorById(id))
+  .filter((calculator): calculator is Calculator => calculator !== undefined)
+  .map((calculator) => {
+    const category = getCategoryById(calculator.categoryId);
+    return {
+      label: calculator.title,
+      href: category ? `/${category.slug}/${calculator.slug}/` : `/${calculator.slug}/`,
+    };
+  });
+---
+
+{
+  items.length > 0 && (
+    <div class:list={[className]}>
+      <SectionLabel as="h2" class="mb-3 block">İlgili Araçlar</SectionLabel>
+      <div class="flex flex-wrap gap-2">
+        {items.map((item) => (
+          <Chip label={item.label} href={item.href} icon={true} />
+        ))}
+      </div>
+    </div>
+  )
+}

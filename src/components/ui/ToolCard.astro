@@ -1,0 +1,23 @@
+---
+import type { Calculator } from '../../calculators/types';
+
+interface Props {
+  calculator: Calculator;
+  href: string;
+}
+const { calculator, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="ui-card group flex flex-col gap-2 p-[18px] transition-colors hover:border-accent/40"
+>
+  <span class="flex items-center justify-between gap-2">
+    <span class="text-[15px] font-semibold text-text transition-colors group-hover:text-accent">
+      {calculator.title}
+    </span>
+    <span class="text-text-faint transition-transform group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+  </span>
+  <span class="text-[12.5px] text-text-muted">{calculator.description}</span>
+  <span class="mt-1 font-mono text-[12px] text-text-dim">{calculator.formula}</span>
+</a>

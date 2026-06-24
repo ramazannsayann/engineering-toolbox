@@ -1,0 +1,11 @@
+---
+// Generic surface container: bg surface, subtle border, radius 14, padding 18.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['ui-card', 'p-[18px]', className]}>
+  <slot />
+</div>

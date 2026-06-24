@@ -33,6 +33,7 @@ import ColorConverter from '../../components/calculators/ColorConverter';
 import Base64Converter from '../../components/calculators/Base64Converter';
 import UrlConverter from '../../components/calculators/UrlConverter';
 import HashCalculator from '../../components/calculators/HashCalculator';
+import JsonFormatter from '../../components/calculators/JsonFormatter';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -58,6 +59,7 @@ export function getStaticPaths() {
     'base64',
     'url-encode',
     'hash',
+    'json-formatla',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -105,4 +107,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'base64' && <Base64Converter client:load />}
   {calculator.id === 'url-encode' && <UrlConverter client:load />}
   {calculator.id === 'hash' && <HashCalculator client:load />}
+  {calculator.id === 'json-formatla' && <JsonFormatter client:load />}
 </ToolLayout>

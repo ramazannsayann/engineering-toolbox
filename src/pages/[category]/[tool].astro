@@ -31,6 +31,7 @@ import DataSizeConverter from '../../components/calculators/DataSizeConverter';
 import SubnetCalculator from '../../components/calculators/SubnetCalculator';
 import ColorConverter from '../../components/calculators/ColorConverter';
 import Base64Converter from '../../components/calculators/Base64Converter';
+import UrlConverter from '../../components/calculators/UrlConverter';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -54,6 +55,7 @@ export function getStaticPaths() {
     'ip-subnet',
     'renk-donusturucu',
     'base64',
+    'url-encode',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -99,4 +101,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'ip-subnet' && <SubnetCalculator client:load />}
   {calculator.id === 'renk-donusturucu' && <ColorConverter client:load />}
   {calculator.id === 'base64' && <Base64Converter client:load />}
+  {calculator.id === 'url-encode' && <UrlConverter client:load />}
 </ToolLayout>

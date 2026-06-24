@@ -28,6 +28,7 @@ import { veriBoyutuMeta } from './computer/veri-boyutu';
 import { ipSubnetMeta } from './computer/ip-subnet';
 import { renkDonusturucuMeta } from './computer/renk-donusturucu';
 import { base64Meta } from './computer/base64';
+import { urlEncodeMeta } from './computer/url-encode';
 
 export type { Calculator } from './types';
 
@@ -50,6 +51,7 @@ const calculators: Calculator[] = [
   ipSubnetMeta,
   renkDonusturucuMeta,
   base64Meta,
+  urlEncodeMeta,
 ];
 
 /**

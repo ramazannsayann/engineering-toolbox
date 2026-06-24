@@ -24,6 +24,7 @@ import { resistorColorMeta } from './electrical/direnc-renk-kodu';
 import { ledResistorMeta } from './electrical/led-direnci';
 import { timerMeta } from './electrical/555-timer';
 import { sayiTabaniMeta } from './computer/sayi-tabani';
+import { veriBoyutuMeta } from './computer/veri-boyutu';
 
 export type { Calculator } from './types';
 
@@ -42,6 +43,7 @@ const calculators: Calculator[] = [
   ledResistorMeta,
   timerMeta,
   sayiTabaniMeta,
+  veriBoyutuMeta,
 ];
 
 /**

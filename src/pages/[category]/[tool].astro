@@ -45,6 +45,7 @@ import { SPEED_UNITS } from '../../calculators/general/hiz';
 import TemperatureConverter from '../../components/calculators/TemperatureConverter';
 import PercentageCalculator from '../../components/calculators/PercentageCalculator';
 import VatCalculator from '../../components/calculators/VatCalculator';
+import ScientificCalculator from '../../components/calculators/ScientificCalculator';
 import WaterHeatingCalculator from '../../components/calculators/WaterHeatingCalculator';
 import WaterFlowCalculator from '../../components/calculators/WaterFlowCalculator';
 import PumpPowerCalculator from '../../components/calculators/PumpPowerCalculator';
@@ -94,6 +95,7 @@ export function getStaticPaths() {
     'sicaklik-donusturucu',
     'yuzde-hesaplama',
     'kdv-hesaplama',
+    'bilimsel-hesap-makinesi',
     'su-isitma-gucu',
     'su-debisi',
     'pompa-gucu',
@@ -173,6 +175,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'sicaklik-donusturucu' && <TemperatureConverter client:load />}
   {calculator.id === 'yuzde-hesaplama' && <PercentageCalculator client:load />}
   {calculator.id === 'kdv-hesaplama' && <VatCalculator client:load />}
+  {calculator.id === 'bilimsel-hesap-makinesi' && <ScientificCalculator client:load />}
   {calculator.id === 'su-isitma-gucu' && <WaterHeatingCalculator client:load />}
   {calculator.id === 'su-debisi' && <WaterFlowCalculator client:load />}
   {calculator.id === 'pompa-gucu' && <PumpPowerCalculator client:load />}

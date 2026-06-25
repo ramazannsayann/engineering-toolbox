@@ -38,6 +38,9 @@ import { agirlikMeta } from './general/agirlik';
 import { alanMeta } from './general/alan';
 import { hacimMeta } from './general/hacim';
 import { hizMeta } from './general/hiz';
+import { sicaklikMeta } from './general/sicaklik';
+import { yuzdeMeta } from './general/yuzde';
+import { kdvMeta } from './general/kdv';
 
 export type { Calculator } from './types';
 
@@ -70,6 +73,9 @@ const calculators: Calculator[] = [
   alanMeta,
   hacimMeta,
   hizMeta,
+  sicaklikMeta,
+  yuzdeMeta,
+  kdvMeta,
 ];
 
 /**

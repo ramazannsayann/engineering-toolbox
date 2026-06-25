@@ -42,6 +42,9 @@ import { WEIGHT_UNITS } from '../../calculators/general/agirlik';
 import { AREA_UNITS } from '../../calculators/general/alan';
 import { VOLUME_UNITS } from '../../calculators/general/hacim';
 import { SPEED_UNITS } from '../../calculators/general/hiz';
+import TemperatureConverter from '../../components/calculators/TemperatureConverter';
+import PercentageCalculator from '../../components/calculators/PercentageCalculator';
+import VatCalculator from '../../components/calculators/VatCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -75,6 +78,9 @@ export function getStaticPaths() {
     'alan-donusturucu',
     'hacim-donusturucu',
     'hiz-donusturucu',
+    'sicaklik-donusturucu',
+    'yuzde-hesaplama',
+    'kdv-hesaplama',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -138,4 +144,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'hiz-donusturucu' && (
     <LinearConverter units={SPEED_UNITS} defaultUnitId="kmh" client:load />
   )}
+  {calculator.id === 'sicaklik-donusturucu' && <TemperatureConverter client:load />}
+  {calculator.id === 'yuzde-hesaplama' && <PercentageCalculator client:load />}
+  {calculator.id === 'kdv-hesaplama' && <VatCalculator client:load />}
 </ToolLayout>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://engineering-toolbox.rmznsyn2024.workers.dev/sitemap-index.xml

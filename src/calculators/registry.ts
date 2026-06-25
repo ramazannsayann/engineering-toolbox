@@ -46,6 +46,8 @@ import { suDebisiMeta } from './hvac/su-debisi';
 import { pompaGucuMeta } from './hvac/pompa-gucu';
 import { boruCapiMeta } from './hvac/boru-capi';
 import { klimaBtuMeta } from './hvac/klima-btu';
+import { isiKaybiMeta } from './hvac/isi-kaybi';
+import { radyatorDilimMeta } from './hvac/radyator-dilim';
 
 export type { Calculator } from './types';
 
@@ -86,6 +88,8 @@ const calculators: Calculator[] = [
   pompaGucuMeta,
   boruCapiMeta,
   klimaBtuMeta,
+  isiKaybiMeta,
+  radyatorDilimMeta,
 ];
 
 /**

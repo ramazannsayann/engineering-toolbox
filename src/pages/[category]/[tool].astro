@@ -46,6 +46,9 @@ import TemperatureConverter from '../../components/calculators/TemperatureConver
 import PercentageCalculator from '../../components/calculators/PercentageCalculator';
 import VatCalculator from '../../components/calculators/VatCalculator';
 import WaterHeatingCalculator from '../../components/calculators/WaterHeatingCalculator';
+import WaterFlowCalculator from '../../components/calculators/WaterFlowCalculator';
+import PumpPowerCalculator from '../../components/calculators/PumpPowerCalculator';
+import PipeDiameterCalculator from '../../components/calculators/PipeDiameterCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -83,6 +86,9 @@ export function getStaticPaths() {
     'yuzde-hesaplama',
     'kdv-hesaplama',
     'su-isitma-gucu',
+    'su-debisi',
+    'pompa-gucu',
+    'boru-capi',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -150,4 +156,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'yuzde-hesaplama' && <PercentageCalculator client:load />}
   {calculator.id === 'kdv-hesaplama' && <VatCalculator client:load />}
   {calculator.id === 'su-isitma-gucu' && <WaterHeatingCalculator client:load />}
+  {calculator.id === 'su-debisi' && <WaterFlowCalculator client:load />}
+  {calculator.id === 'pompa-gucu' && <PumpPowerCalculator client:load />}
+  {calculator.id === 'boru-capi' && <PipeDiameterCalculator client:load />}
 </ToolLayout>

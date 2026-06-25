@@ -42,6 +42,9 @@ import { sicaklikMeta } from './general/sicaklik';
 import { yuzdeMeta } from './general/yuzde';
 import { kdvMeta } from './general/kdv';
 import { suIsitmaMeta } from './hvac/su-isitma';
+import { suDebisiMeta } from './hvac/su-debisi';
+import { pompaGucuMeta } from './hvac/pompa-gucu';
+import { boruCapiMeta } from './hvac/boru-capi';
 
 export type { Calculator } from './types';
 
@@ -78,6 +81,9 @@ const calculators: Calculator[] = [
   yuzdeMeta,
   kdvMeta,
   suIsitmaMeta,
+  suDebisiMeta,
+  pompaGucuMeta,
+  boruCapiMeta,
 ];
 
 /**

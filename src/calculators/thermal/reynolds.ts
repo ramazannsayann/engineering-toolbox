@@ -71,6 +71,19 @@ export const REYNOLDS_ERROR = {
 
 const fmt = formatNumber;
 
+/**
+ * Pure Reynolds number from SI quantities: Re = ρ·v·D / μ (D in metres).
+ * Exported so other flow tools (pipe pressure loss) reuse the exact same math.
+ */
+export function computeReynolds(
+  rho: number,
+  mu: number,
+  velocityMs: number,
+  diameterM: number,
+): number {
+  return (rho * velocityMs * diameterM) / mu;
+}
+
 /** Classify the flow regime from the Reynolds number. */
 export function regimeOf(re: number): string {
   if (re < LAMINAR_MAX) return 'Laminer';
@@ -121,7 +134,7 @@ export function solveReynolds(input: ReynoldsInput): ReynoldsResult {
   }
 
   const diameterM = diameterMm / 1000;
-  const reynolds = (rhoUsed * velocityMs * diameterM) / muUsed;
+  const reynolds = computeReynolds(rhoUsed, muUsed, velocityMs, diameterM);
 
   if (!Number.isFinite(reynolds) || reynolds <= 0) {
     return fail<ReynoldsSuccess>(

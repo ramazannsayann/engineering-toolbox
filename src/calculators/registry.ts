@@ -52,6 +52,8 @@ import { isiTransferiMeta } from './thermal/isi-transferi';
 import { reynoldsMeta } from './thermal/reynolds';
 import { debiMeta } from './thermal/debi';
 import { isilGenlesmeMeta } from './thermal/isil-genlesme';
+import { basincKaybiMeta } from './thermal/basinc-kaybi';
+import { isiIletimiMeta } from './thermal/isi-iletimi';
 
 export type { Calculator } from './types';
 
@@ -98,6 +100,8 @@ const calculators: Calculator[] = [
   reynoldsMeta,
   debiMeta,
   isilGenlesmeMeta,
+  basincKaybiMeta,
+  isiIletimiMeta,
 ];
 
 /**

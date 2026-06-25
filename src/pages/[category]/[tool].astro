@@ -56,6 +56,8 @@ import HeatTransferCalculator from '../../components/calculators/HeatTransferCal
 import ReynoldsCalculator from '../../components/calculators/ReynoldsCalculator';
 import FlowRateCalculator from '../../components/calculators/FlowRateCalculator';
 import ThermalExpansionCalculator from '../../components/calculators/ThermalExpansionCalculator';
+import PressureLossCalculator from '../../components/calculators/PressureLossCalculator';
+import HeatConductionCalculator from '../../components/calculators/HeatConductionCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -103,6 +105,8 @@ export function getStaticPaths() {
     'reynolds-sayisi',
     'debi-hesaplama',
     'isil-genlesme',
+    'borudaki-basinc-kaybi',
+    'isi-iletimi',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -180,4 +184,6 @@ const { calculator } = Astro.props;
   {calculator.id === 'reynolds-sayisi' && <ReynoldsCalculator client:load />}
   {calculator.id === 'debi-hesaplama' && <FlowRateCalculator client:load />}
   {calculator.id === 'isil-genlesme' && <ThermalExpansionCalculator client:load />}
+  {calculator.id === 'borudaki-basinc-kaybi' && <PressureLossCalculator client:load />}
+  {calculator.id === 'isi-iletimi' && <HeatConductionCalculator client:load />}
 </ToolLayout>

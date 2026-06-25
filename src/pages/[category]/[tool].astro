@@ -45,6 +45,7 @@ import { SPEED_UNITS } from '../../calculators/general/hiz';
 import TemperatureConverter from '../../components/calculators/TemperatureConverter';
 import PercentageCalculator from '../../components/calculators/PercentageCalculator';
 import VatCalculator from '../../components/calculators/VatCalculator';
+import WaterHeatingCalculator from '../../components/calculators/WaterHeatingCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -81,6 +82,7 @@ export function getStaticPaths() {
     'sicaklik-donusturucu',
     'yuzde-hesaplama',
     'kdv-hesaplama',
+    'su-isitma-gucu',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -147,4 +149,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'sicaklik-donusturucu' && <TemperatureConverter client:load />}
   {calculator.id === 'yuzde-hesaplama' && <PercentageCalculator client:load />}
   {calculator.id === 'kdv-hesaplama' && <VatCalculator client:load />}
+  {calculator.id === 'su-isitma-gucu' && <WaterHeatingCalculator client:load />}
 </ToolLayout>

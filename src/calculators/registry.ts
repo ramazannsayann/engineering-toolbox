@@ -41,6 +41,7 @@ import { hizMeta } from './general/hiz';
 import { sicaklikMeta } from './general/sicaklik';
 import { yuzdeMeta } from './general/yuzde';
 import { kdvMeta } from './general/kdv';
+import { suIsitmaMeta } from './hvac/su-isitma';
 
 export type { Calculator } from './types';
 
@@ -76,6 +77,7 @@ const calculators: Calculator[] = [
   sicaklikMeta,
   yuzdeMeta,
   kdvMeta,
+  suIsitmaMeta,
 ];
 
 /**

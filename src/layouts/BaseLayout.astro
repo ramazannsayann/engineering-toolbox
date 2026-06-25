@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { Font } from 'astro:assets';
 import SiteHeader from '../components/ui/SiteHeader.astro';
 import SiteFooter from '../components/ui/SiteFooter.astro';
+import CalculatorLauncher from '../components/CalculatorLauncher';
 
 interface Props {
   /** Page <title>. */
@@ -46,5 +47,8 @@ const PRELOAD = [
     <SiteHeader />
     <slot />
     <SiteFooter />
+    {/* Site-wide floating calculator. client:idle ships only the tiny launcher;
+        the heavy calculator + mathjs are dynamically imported on first open. */}
+    <CalculatorLauncher client:idle />
   </body>
 </html>

@@ -49,6 +49,7 @@ import WaterHeatingCalculator from '../../components/calculators/WaterHeatingCal
 import WaterFlowCalculator from '../../components/calculators/WaterFlowCalculator';
 import PumpPowerCalculator from '../../components/calculators/PumpPowerCalculator';
 import PipeDiameterCalculator from '../../components/calculators/PipeDiameterCalculator';
+import AcBtuCalculator from '../../components/calculators/AcBtuCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -89,6 +90,7 @@ export function getStaticPaths() {
     'su-debisi',
     'pompa-gucu',
     'boru-capi',
+    'klima-btu',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -159,4 +161,5 @@ const { calculator } = Astro.props;
   {calculator.id === 'su-debisi' && <WaterFlowCalculator client:load />}
   {calculator.id === 'pompa-gucu' && <PumpPowerCalculator client:load />}
   {calculator.id === 'boru-capi' && <PipeDiameterCalculator client:load />}
+  {calculator.id === 'klima-btu' && <AcBtuCalculator client:load />}
 </ToolLayout>

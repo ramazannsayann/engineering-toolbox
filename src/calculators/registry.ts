@@ -49,6 +49,9 @@ import { klimaBtuMeta } from './hvac/klima-btu';
 import { isiKaybiMeta } from './hvac/isi-kaybi';
 import { radyatorDilimMeta } from './hvac/radyator-dilim';
 import { isiTransferiMeta } from './thermal/isi-transferi';
+import { reynoldsMeta } from './thermal/reynolds';
+import { debiMeta } from './thermal/debi';
+import { isilGenlesmeMeta } from './thermal/isil-genlesme';
 
 export type { Calculator } from './types';
 
@@ -92,6 +95,9 @@ const calculators: Calculator[] = [
   isiKaybiMeta,
   radyatorDilimMeta,
   isiTransferiMeta,
+  reynoldsMeta,
+  debiMeta,
+  isilGenlesmeMeta,
 ];
 
 /**

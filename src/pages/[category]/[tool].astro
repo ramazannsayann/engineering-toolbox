@@ -53,6 +53,9 @@ import AcBtuCalculator from '../../components/calculators/AcBtuCalculator';
 import HeatLossCalculator from '../../components/calculators/HeatLossCalculator';
 import RadiatorCalculator from '../../components/calculators/RadiatorCalculator';
 import HeatTransferCalculator from '../../components/calculators/HeatTransferCalculator';
+import ReynoldsCalculator from '../../components/calculators/ReynoldsCalculator';
+import FlowRateCalculator from '../../components/calculators/FlowRateCalculator';
+import ThermalExpansionCalculator from '../../components/calculators/ThermalExpansionCalculator';
 
 export function getStaticPaths() {
   // Defined inside getStaticPaths: Astro evaluates this export in its own scope,
@@ -97,6 +100,9 @@ export function getStaticPaths() {
     'isi-kaybi',
     'radyator-dilim',
     'isi-transferi',
+    'reynolds-sayisi',
+    'debi-hesaplama',
+    'isil-genlesme',
   ]);
   return getAllCalculators()
     .filter((calculator) => WIRED_ISLAND_IDS.has(calculator.id))
@@ -171,4 +177,7 @@ const { calculator } = Astro.props;
   {calculator.id === 'isi-kaybi' && <HeatLossCalculator client:load />}
   {calculator.id === 'radyator-dilim' && <RadiatorCalculator client:load />}
   {calculator.id === 'isi-transferi' && <HeatTransferCalculator client:load />}
+  {calculator.id === 'reynolds-sayisi' && <ReynoldsCalculator client:load />}
+  {calculator.id === 'debi-hesaplama' && <FlowRateCalculator client:load />}
+  {calculator.id === 'isil-genlesme' && <ThermalExpansionCalculator client:load />}
 </ToolLayout>

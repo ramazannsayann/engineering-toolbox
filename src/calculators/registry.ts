@@ -48,6 +48,7 @@ import { boruCapiMeta } from './hvac/boru-capi';
 import { klimaBtuMeta } from './hvac/klima-btu';
 import { isiKaybiMeta } from './hvac/isi-kaybi';
 import { radyatorDilimMeta } from './hvac/radyator-dilim';
+import { isiTransferiMeta } from './thermal/isi-transferi';
 
 export type { Calculator } from './types';
 
@@ -90,6 +91,7 @@ const calculators: Calculator[] = [
   klimaBtuMeta,
   isiKaybiMeta,
   radyatorDilimMeta,
+  isiTransferiMeta,
 ];
 
 /**
